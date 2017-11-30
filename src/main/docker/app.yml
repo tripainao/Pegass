@@ -1,0 +1,19 @@
+version: '2'
+services:
+    pegass-app:
+        image: pegass
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://pegass-postgresql:5432/Pegass
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=pegass-elasticsearch:9300
+        ports:
+            - 8080:8080
+    pegass-postgresql:
+        extends:
+            file: postgresql.yml
+            service: pegass-postgresql
+    pegass-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: pegass-elasticsearch
